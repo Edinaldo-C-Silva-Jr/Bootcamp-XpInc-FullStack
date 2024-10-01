@@ -1,23 +1,37 @@
+using Microsoft.EntityFrameworkCore;
 using MinimalsAPI.Dominio.DTOs;
+using MinimalsAPI.Infraestrutura.DatabaseContext;
 
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-
-// Rota padrão do aplicativo.
-app.MapGet("/", () => "Hello World!");
-
-// Rota para realizar o login.
-app.MapPost("/login", (LoginDTO loginDTO) =>
+internal class Program
 {
-    if (loginDTO.Email == "adm@teste.com" && loginDTO.Senha == "123456")
+    private static void Main(string[] args)
     {
-        return Results.Ok("Login realizado com sucesso.");
-    }
-    else
-    {
-        return Results.Unauthorized();
-        ;
-    }
-});
+        var builder = WebApplication.CreateBuilder(args);
 
-app.Run();
+        builder.Services.AddDbContext<VeiculosContexto>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("MinimalsAPIDatabase"));
+        });
+
+        var app = builder.Build();
+
+        // Rota padrão do aplicativo.
+        app.MapGet("/", () => "Hello World!");
+
+        // Rota para realizar o login.
+        app.MapPost("/login", (LoginDTO loginDTO) =>
+        {
+            if (loginDTO.Email == "adm@teste.com" && loginDTO.Senha == "123456")
+            {
+                return Results.Ok("Login realizado com sucesso.");
+            }
+            else
+            {
+                return Results.Unauthorized();
+                ;
+            }
+        });
+
+        app.Run();
+    }
+}
