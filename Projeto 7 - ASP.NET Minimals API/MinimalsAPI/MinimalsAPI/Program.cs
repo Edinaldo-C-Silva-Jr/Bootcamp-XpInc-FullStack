@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinimalsAPI.Dominio.DTOs;
+using MinimalsAPI.Dominio.Interfaces;
+using MinimalsAPI.Dominio.Servicos;
 using MinimalsAPI.Infraestrutura.DatabaseContext;
 
 internal class Program
@@ -8,6 +11,9 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddScoped<IAdministradorService, AdministradorService>();
+
+        // Configura o contexto do banco de dados na aplicação.
         builder.Services.AddDbContext<VeiculosContexto>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("MinimalsAPIDatabase"));
@@ -19,16 +25,15 @@ internal class Program
         app.MapGet("/", () => "Hello World!");
 
         // Rota para realizar o login.
-        app.MapPost("/login", (LoginDTO loginDTO) =>
+        app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorService administradorService) =>
         {
-            if (loginDTO.Email == "adm@teste.com" && loginDTO.Senha == "123456")
+            if (administradorService.Login(loginDTO) is not null)
             {
                 return Results.Ok("Login realizado com sucesso.");
             }
             else
             {
                 return Results.Unauthorized();
-                ;
             }
         });
 
