@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MinimalsAPI.Infraestrutura.DatabaseContext;
 
@@ -10,9 +11,11 @@ using MinimalsAPI.Infraestrutura.DatabaseContext;
 namespace MinimalsAPI.Migrations
 {
     [DbContext(typeof(VeiculosContexto))]
-    partial class VeiculosContextoModelSnapshot : ModelSnapshot
+    [Migration("20241002171404_SeedAdministrador")]
+    partial class SeedAdministrador
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
