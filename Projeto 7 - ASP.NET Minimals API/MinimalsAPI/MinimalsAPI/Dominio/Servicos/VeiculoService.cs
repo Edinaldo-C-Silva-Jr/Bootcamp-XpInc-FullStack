@@ -18,7 +18,7 @@ namespace MinimalsAPI.Dominio.Servicos
 
         public List<Veiculo> RetornarTodos(int pagina = 1, string? nome = null, string? marca = null)
         {
-            var query = _context.Veiculos.AsQueryable();
+            IQueryable<Veiculo> query = _context.Veiculos.AsQueryable();
 
             if (!string.IsNullOrEmpty(nome))
             {

@@ -24,10 +24,9 @@ namespace MinimalsAPI.Infraestrutura.DatabaseContext
         public DbSet<Administrador> Administradores { get; set; } = default!;
 
         /// <summary>
-        /// DBSet que representa a entidade de administradores.
+        /// DBSet que representa a entidade de veículos.
         /// </summary>
         public DbSet<Veiculo> Veiculos { get; set; } = default!;
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -11,6 +11,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        // Adiciona o AdministratorService à aplicação com lifetime Scoped.
         builder.Services.AddScoped<IAdministradorService, AdministradorService>();
 
         // Configura o contexto do banco de dados na aplicação.
@@ -19,7 +20,15 @@ internal class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("MinimalsAPIDatabase"));
         });
 
+        // Configura o Swagger na aplicação.
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         var app = builder.Build();
+
+        // Configura o aplicativo para usar o Swagger com a interface.
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         // Rota padrão do aplicativo.
         app.MapGet("/", () => "Hello World!");
