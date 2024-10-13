@@ -18,11 +18,21 @@ namespace MinimalsAPI.Dominio.Servicos
 
         public List<Veiculo> RetornarTodos(int pagina = 1, string? nome = null, string? marca = null)
         {
+            if (pagina < 1)
+            {
+                return [];
+            }
+
             IQueryable<Veiculo> query = _context.Veiculos.AsQueryable();
 
             if (!string.IsNullOrEmpty(nome))
             {
                 query = query.Where(v => v.Nome.Contains(nome, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(marca))
+            {
+                query = query.Where(v => v.Marca.Contains(marca, StringComparison.CurrentCultureIgnoreCase));
             }
 
             int itensPorPagina = 10;
