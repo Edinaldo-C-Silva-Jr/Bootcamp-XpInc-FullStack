@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinimalsAPI.Dominio.DTOs;
 using MinimalsAPI.Dominio.Interfaces;
+using MinimalsAPI.Dominio.ModelViews;
 using MinimalsAPI.Dominio.Servicos;
 using MinimalsAPI.Infraestrutura.DatabaseContext;
 
@@ -30,8 +31,8 @@ internal class Program
         app.UseSwagger();
         app.UseSwaggerUI();
 
-        // Rota padrão do aplicativo.
-        app.MapGet("/", () => "Hello World!");
+        // Mapeia a rota inicial do aplicativo através da model Home, que aponta para a documentação.
+        app.MapGet("/", () => Results.Json(new Home()));
 
         // Rota para realizar o login.
         app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorService administradorService) =>
