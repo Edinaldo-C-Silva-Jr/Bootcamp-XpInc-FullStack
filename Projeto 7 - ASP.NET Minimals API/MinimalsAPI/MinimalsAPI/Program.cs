@@ -34,6 +34,7 @@ internal class Program
         // Mapeia a rota inicial através da model Home, que aponta para a documentação.
         app.MapGet("/", () => Results.Json(new Home())).WithTags("Home");
 
+        #region Administradores
         // Rota para realizar o login.
         app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorService administradorService) =>
         {
@@ -46,10 +47,44 @@ internal class Program
                 return Results.Unauthorized();
             }
         }).WithTags("Administradores");
+        #endregion
+
+        #region Veiculos
+        // Função que faz as validações dos dados de um veiculoDTO.
+        ErrosDeValidacao ValidaVeiculoDTO(VeiculoDTO veiculoDTO)
+        {
+            ErrosDeValidacao validacao = new()
+            {
+                Mensagem = []
+            };
+
+            if (string.IsNullOrEmpty(veiculoDTO.Nome))
+            {
+                validacao.Mensagem.Add("O nome não pode ser vazio.");
+            }
+
+            if (string.IsNullOrEmpty(veiculoDTO.Marca))
+            {
+                validacao.Mensagem.Add("A marca não pode ser vazia.");
+            }
+
+            if (veiculoDTO.Ano < 1886)
+            {
+                validacao.Mensagem.Add("O ano deve ser igual ou superior a 1886, o ano de invenção do primeiro carro.");
+            }
+
+            return validacao;
+        }
 
         // Rota para realizar o cadastro de um veículo através de um DTO.
         app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoService veiculoService) =>
         {
+            ErrosDeValidacao validacao = ValidaVeiculoDTO(veiculoDTO);
+            if (validacao.Mensagem.Count > 0)
+            {
+                return Results.BadRequest(validacao);
+            }
+
             Veiculo veiculo = new()
             {
                 Nome = veiculoDTO.Nome,
@@ -86,8 +121,14 @@ internal class Program
         }).WithTags("Veiculos");
 
         // Rota para alterar um veículo através do ID e de um veiculoDTO.
-        app.MapPut("/veiculos/{id}", ([FromRoute] int id, [FromRoute] VeiculoDTO veiculoDTO, IVeiculoService veiculoService) =>
+        app.MapPut("/veiculos/{id}", ([FromRoute] int id, [FromBody] VeiculoDTO veiculoDTO, IVeiculoService veiculoService) =>
         {
+            ErrosDeValidacao validacao = ValidaVeiculoDTO(veiculoDTO);
+            if (validacao.Mensagem.Count > 0)
+            {
+                return Results.BadRequest(validacao);
+            }
+
             Veiculo? veiculo = veiculoService.RetornaPorId(id);
 
             if (veiculo is null)
@@ -122,6 +163,7 @@ internal class Program
                 return Results.NoContent();
             }
         }).WithTags("Veiculos");
+        #endregion
 
         // Configura o aplicativo para usar o Swagger com a interface.
         app.UseSwagger();

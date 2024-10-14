@@ -13,6 +13,10 @@ namespace MinimalsAPI.Infraestrutura.DatabaseContext
         /// </summary>
         protected readonly IConfiguration _configuration;
 
+        /// <summary>
+        /// Construtor primário que realiza a injeção de dependência.
+        /// </summary>
+        /// <param name="configuration">Uma instância de configuração que será injetada no campo _configuration.</param>
         public VeiculosContexto(IConfiguration configuration)
         {
             _configuration = configuration;
