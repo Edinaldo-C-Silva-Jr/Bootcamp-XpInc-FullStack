@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MinimalsAPI.Dominio.DTOs;
 using MinimalsAPI.Dominio.Entidades;
 using MinimalsAPI.Dominio.Enums;
@@ -7,6 +9,9 @@ using MinimalsAPI.Dominio.Interfaces;
 using MinimalsAPI.Dominio.ModelViews;
 using MinimalsAPI.Dominio.Servicos;
 using MinimalsAPI.Infraestrutura.DatabaseContext;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 internal class Program
 {
@@ -25,6 +30,24 @@ internal class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("MinimalsAPIDatabase"));
         });
 
+        // Pega o valor da key do appsettings.json.
+        string key = builder.Configuration.GetSection("Jwt").ToString() ?? "12345678";
+
+        // Adiciona o serviço de autenticação na aplicação, utilizando o JWT Bearer.
+        builder.Services.AddAuthentication(option =>
+        {
+            option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(option =>
+        {
+            option.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+            };
+        });
+        builder.Services.AddAuthorization();
+
         // Configura o Swagger na aplicação.
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -36,6 +59,27 @@ internal class Program
         app.MapGet("/", () => Results.Json(new Home())).WithTags("Home");
 
         #region Administradores
+        // Função para gerar o token JWT.
+        string GerarTokenJWT(Administrador administrador)
+        {
+            SecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            SigningCredentials credentials = new(securityKey, SecurityAlgorithms.HmacSha256);
+
+            List<Claim> claims =
+            [
+                new Claim("Email", administrador.Email),
+                new Claim("Perfil", administrador.Perfil)
+            ];
+
+            SecurityToken token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
         // Função que faz as validações dos dados de um administradorDTO.
         ErrosDeValidacao ValidaAdministradorDTO(AdministradorDTO administradorDTO)
         {
@@ -88,9 +132,7 @@ internal class Program
             };
 
             return Results.Created($"/administradores/{administrador.Id}", admin);
-
-
-        }).WithTags("Administradores");
+        }).RequireAuthorization().WithTags("Administradores");
 
         // Rota para retornar todos os administradores.
         app.MapGet("/administradores", (IAdministradorService administradorService, int pagina = 1) =>
@@ -98,7 +140,7 @@ internal class Program
             List<AdministradorModelView> admins = [];
             List<Administrador> administradores = administradorService.RetornarTodos(pagina);
 
-            foreach(Administrador admin in administradores)
+            foreach (Administrador admin in administradores)
             {
                 admins.Add(new AdministradorModelView
                 {
@@ -109,7 +151,7 @@ internal class Program
             }
 
             return Results.Ok(admins);
-        }).WithTags("Administradores");
+        }).RequireAuthorization().WithTags("Administradores");
 
         // Rota para retornar um administrador através do ID.
         app.MapGet("/administradores/{id}", ([FromRoute] int id, IAdministradorService administradorService) =>
@@ -131,14 +173,24 @@ internal class Program
 
                 return Results.Ok(admin);
             }
-        }).WithTags("Administradores");
+        }).RequireAuthorization().WithTags("Administradores");
 
         // Rota para realizar o login.
         app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorService administradorService) =>
         {
-            if (administradorService.Login(loginDTO) is not null)
+            Administrador? administrador = administradorService.Login(loginDTO);
+            if (administrador is not null)
             {
-                return Results.Ok("Login realizado com sucesso.");
+                string token = GerarTokenJWT(administrador);
+
+                AdministradorLogado adminLogado = new()
+                {
+                    Email = administrador.Email,
+                    Perfil = administrador.Perfil,
+                    Token = token
+                };
+
+                return Results.Ok(adminLogado);
             }
             else
             {
@@ -193,7 +245,7 @@ internal class Program
             veiculoService.IncluirVeiculo(veiculo);
 
             return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
-        }).WithTags("Veiculos");
+        }).RequireAuthorization().WithTags("Veiculos");
 
         // Rota para retornar todos os veículos.
         app.MapGet("/veiculos", (IVeiculoService veiculoService, int pagina = 1) =>
@@ -201,7 +253,7 @@ internal class Program
             List<Veiculo> veiculos = veiculoService.RetornarTodos(pagina);
 
             return Results.Ok(veiculos);
-        }).WithTags("Veiculos");
+        }).RequireAuthorization().WithTags("Veiculos");
 
         // Rota para retornar um veículo através do ID.
         app.MapGet("/veiculos/{id}", ([FromRoute] int id, IVeiculoService veiculoService) =>
@@ -216,7 +268,7 @@ internal class Program
             {
                 return Results.Ok(veiculo);
             }
-        }).WithTags("Veiculos");
+        }).RequireAuthorization().WithTags("Veiculos");
 
         // Rota para alterar um veículo através do ID e de um veiculoDTO.
         app.MapPut("/veiculos/{id}", ([FromRoute] int id, [FromBody] VeiculoDTO veiculoDTO, IVeiculoService veiculoService) =>
@@ -243,7 +295,7 @@ internal class Program
 
                 return Results.Ok(veiculo);
             }
-        }).WithTags("Veiculos");
+        }).RequireAuthorization().WithTags("Veiculos");
 
         // Rota para deletar um veículo através do ID.
         app.MapDelete("/veiculos/{id}", ([FromRoute] int id, IVeiculoService veiculoService) =>
@@ -260,12 +312,16 @@ internal class Program
 
                 return Results.NoContent();
             }
-        }).WithTags("Veiculos");
+        }).RequireAuthorization().WithTags("Veiculos");
         #endregion
 
         // Configura o aplicativo para usar o Swagger com a interface.
         app.UseSwagger();
         app.UseSwaggerUI();
+
+        // Configura a aplicação para usar a autenticação.
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.Run();
     }
