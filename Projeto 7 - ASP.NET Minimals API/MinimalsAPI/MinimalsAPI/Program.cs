@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinimalsAPI.Dominio.DTOs;
 using MinimalsAPI.Dominio.Entidades;
+using MinimalsAPI.Dominio.Enums;
 using MinimalsAPI.Dominio.Interfaces;
 using MinimalsAPI.Dominio.ModelViews;
 using MinimalsAPI.Dominio.Servicos;
@@ -35,6 +36,103 @@ internal class Program
         app.MapGet("/", () => Results.Json(new Home())).WithTags("Home");
 
         #region Administradores
+        // Função que faz as validações dos dados de um administradorDTO.
+        ErrosDeValidacao ValidaAdministradorDTO(AdministradorDTO administradorDTO)
+        {
+            ErrosDeValidacao validacao = new()
+            {
+                Mensagem = []
+            };
+
+            if (string.IsNullOrEmpty(administradorDTO.Email))
+            {
+                validacao.Mensagem.Add("O e-mail não pode ser vazio.");
+            }
+
+            if (administradorDTO.Senha.Length < 8)
+            {
+                validacao.Mensagem.Add("A senha deve ter pelo menos 8 caracteres.");
+            }
+
+            if (administradorDTO.PerfilDoAdmin != Perfil.Admin && administradorDTO.PerfilDoAdmin != Perfil.Editor)
+            {
+                validacao.Mensagem.Add("O perfil deve ser Admin (0) ou Editor (1).");
+            }
+
+            return validacao;
+        }
+
+        // Rota para realizar o cadastro de um administrador.
+        app.MapPost("/administradores", ([FromBody] AdministradorDTO administradorDTO, IAdministradorService administradorService) =>
+        {
+            ErrosDeValidacao validacao = ValidaAdministradorDTO(administradorDTO);
+            if (validacao.Mensagem.Count > 0)
+            {
+                return Results.BadRequest(validacao);
+            }
+
+            Administrador administrador = new()
+            {
+                Email = administradorDTO.Email,
+                Senha = administradorDTO.Senha,
+                Perfil = administradorDTO.PerfilDoAdmin.ToString() ?? Perfil.Editor.ToString()
+            };
+
+            administradorService.AdicionarAdministrador(administrador);
+
+            AdministradorModelView admin = new()
+            {
+                Id = administrador.Id,
+                Email = administrador.Email,
+                Perfil = administrador.Perfil
+            };
+
+            return Results.Created($"/administradores/{administrador.Id}", admin);
+
+
+        }).WithTags("Administradores");
+
+        // Rota para retornar todos os administradores.
+        app.MapGet("/administradores", (IAdministradorService administradorService, int pagina = 1) =>
+        {
+            List<AdministradorModelView> admins = [];
+            List<Administrador> administradores = administradorService.RetornarTodos(pagina);
+
+            foreach(Administrador admin in administradores)
+            {
+                admins.Add(new AdministradorModelView
+                {
+                    Id = admin.Id,
+                    Email = admin.Email,
+                    Perfil = admin.Perfil
+                });
+            }
+
+            return Results.Ok(admins);
+        }).WithTags("Administradores");
+
+        // Rota para retornar um administrador através do ID.
+        app.MapGet("/administradores/{id}", ([FromRoute] int id, IAdministradorService administradorService) =>
+        {
+            Administrador? administrador = administradorService.RetornaPorId(id);
+
+            if (administrador is null)
+            {
+                return Results.NotFound();
+            }
+            else
+            {
+                AdministradorModelView admin = new()
+                {
+                    Id = administrador.Id,
+                    Email = administrador.Email,
+                    Perfil = administrador.Perfil
+                };
+
+                return Results.Ok(admin);
+            }
+        }).WithTags("Administradores");
+
         // Rota para realizar o login.
         app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorService administradorService) =>
         {

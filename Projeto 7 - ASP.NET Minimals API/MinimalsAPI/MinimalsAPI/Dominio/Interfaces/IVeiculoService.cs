@@ -4,14 +4,14 @@ namespace MinimalsAPI.Dominio.Interfaces
 {
     public interface IVeiculoService
     {
-        List<Veiculo> RetornarTodos(int pagina = 1, string? nome = null, string? marca = null);
+        public List<Veiculo> RetornarTodos(int pagina = 1, string? nome = null, string? marca = null);
 
-        Veiculo? RetornaPorId(int id);
+        public Veiculo? RetornaPorId(int id);
 
-        void IncluirVeiculo(Veiculo veiculo);
+        public void IncluirVeiculo(Veiculo veiculo);
 
-        void AtualizarVeiculo(Veiculo veiculo);
+        public void AtualizarVeiculo(Veiculo veiculo);
 
-        void DeletarVeiculo(Veiculo veiculo);
+        public void DeletarVeiculo(Veiculo veiculo);
     }
 }
