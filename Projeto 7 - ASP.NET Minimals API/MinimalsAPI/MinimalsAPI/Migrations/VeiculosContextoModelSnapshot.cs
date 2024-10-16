@@ -9,7 +9,7 @@ using MinimalsAPI.Infraestrutura.DatabaseContext;
 
 namespace MinimalsAPI.Migrations
 {
-    [DbContext(typeof(VeiculosContexto))]
+    [DbContext(typeof(MinimalsAPIContexto))]
     partial class VeiculosContextoModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

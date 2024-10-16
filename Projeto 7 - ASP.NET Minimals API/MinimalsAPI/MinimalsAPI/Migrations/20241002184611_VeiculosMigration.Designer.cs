@@ -10,7 +10,7 @@ using MinimalsAPI.Infraestrutura.DatabaseContext;
 
 namespace MinimalsAPI.Migrations
 {
-    [DbContext(typeof(VeiculosContexto))]
+    [DbContext(typeof(MinimalsAPIContexto))]
     [Migration("20241002184611_VeiculosMigration")]
     partial class VeiculosMigration
     {

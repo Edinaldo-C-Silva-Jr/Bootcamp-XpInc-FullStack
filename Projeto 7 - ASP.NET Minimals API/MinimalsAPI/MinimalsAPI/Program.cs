@@ -27,7 +27,7 @@ internal class Program
         builder.Services.AddScoped<IVeiculoService, VeiculoService>();
 
         // Configura o contexto do banco de dados na aplicação.
-        builder.Services.AddDbContext<VeiculosContexto>(options =>
+        builder.Services.AddDbContext<MinimalsAPIContexto>(options =>
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("MinimalsAPIDatabase"));
         });

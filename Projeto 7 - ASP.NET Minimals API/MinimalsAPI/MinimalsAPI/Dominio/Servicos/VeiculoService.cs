@@ -12,13 +12,13 @@ namespace MinimalsAPI.Dominio.Servicos
         /// <summary>
         /// Recebe o contexto do banco de dados por DI.
         /// </summary>
-        private readonly VeiculosContexto _context;
+        private readonly MinimalsAPIContexto _context;
 
         /// <summary>
         /// Construtor primário que realiza a injeção de dependência.
         /// </summary>
         /// <param name="context">O contexto do banco de dados a ser usado nos</param>
-        public VeiculoService(VeiculosContexto context)
+        public VeiculoService(MinimalsAPIContexto context)
         {
             _context = context;
         }
