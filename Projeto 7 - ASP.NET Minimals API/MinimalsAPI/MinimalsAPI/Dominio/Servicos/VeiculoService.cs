@@ -4,6 +4,9 @@ using MinimalsAPI.Infraestrutura.DatabaseContext;
 
 namespace MinimalsAPI.Dominio.Servicos
 {
+    /// <summary>
+    /// Implementação da classe de Service que contém os métodos relacionados a veículo.
+    /// </summary>
     public class VeiculoService : IVeiculoService
     {
         /// <summary>
@@ -11,6 +14,10 @@ namespace MinimalsAPI.Dominio.Servicos
         /// </summary>
         private readonly VeiculosContexto _context;
 
+        /// <summary>
+        /// Construtor primário que realiza a injeção de dependência.
+        /// </summary>
+        /// <param name="context">O contexto do banco de dados a ser usado nos</param>
         public VeiculoService(VeiculosContexto context)
         {
             _context = context;
@@ -23,20 +30,22 @@ namespace MinimalsAPI.Dominio.Servicos
                 return [];
             }
 
+            // Cria uma query do banco de dados para pesquisar por veículos.
             IQueryable<Veiculo> query = _context.Veiculos.AsQueryable();
 
+            // Adiciona condições na query com base nos parâmetros recebidos.
             if (!string.IsNullOrEmpty(nome))
             {
                 query = query.Where(v => v.Nome.Contains(nome, StringComparison.CurrentCultureIgnoreCase));
             }
-
             if (!string.IsNullOrEmpty(marca))
             {
                 query = query.Where(v => v.Marca.Contains(marca, StringComparison.CurrentCultureIgnoreCase));
             }
 
             int itensPorPagina = 10;
-
+            
+            // Altera a query para pegar apenas os registros na página solicitada. 
             query = query.Skip((pagina - 1) * itensPorPagina).Take(itensPorPagina);
 
             return query.ToList();

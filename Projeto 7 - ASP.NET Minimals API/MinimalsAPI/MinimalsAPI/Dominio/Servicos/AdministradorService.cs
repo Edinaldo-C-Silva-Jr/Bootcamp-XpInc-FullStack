@@ -5,6 +5,9 @@ using MinimalsAPI.Infraestrutura.DatabaseContext;
 
 namespace MinimalsAPI.Dominio.Servicos
 {
+    /// <summary>
+    /// Implementação da classe de Service que contém os métodos relacionados a administrador.
+    /// </summary>
     public class AdministradorService : IAdministradorService
     {
         /// <summary>
@@ -12,6 +15,10 @@ namespace MinimalsAPI.Dominio.Servicos
         /// </summary>
         private readonly VeiculosContexto _context;
 
+        /// <summary>
+        /// Construtor primário que realiza a injeção de dependência.
+        /// </summary>
+        /// <param name="context">O contexto do banco de dados a ser usado nos</param>
         public AdministradorService(VeiculosContexto context) 
         {
             _context = context;
@@ -19,6 +26,7 @@ namespace MinimalsAPI.Dominio.Servicos
 
         public Administrador? Login(LoginDTO loginDTO)
         {
+            // Retorna o primeiro administrador cujo e-mail e senha coincidem com os enviados no login.
             return _context.Administradores.Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha).FirstOrDefault();
         }
 
@@ -35,10 +43,12 @@ namespace MinimalsAPI.Dominio.Servicos
                 return [];
             }
 
+            // Cria uma query do banco de dados para pesquisar por administradores.
             IQueryable<Administrador> query = _context.Administradores.AsQueryable();
 
             int itensPorPagina = 10;
 
+            // Altera a query para pegar apenas os registros na página solicitada. 
             query = query.Skip((pagina - 1) * itensPorPagina).Take(itensPorPagina);
 
             return query.ToList();
