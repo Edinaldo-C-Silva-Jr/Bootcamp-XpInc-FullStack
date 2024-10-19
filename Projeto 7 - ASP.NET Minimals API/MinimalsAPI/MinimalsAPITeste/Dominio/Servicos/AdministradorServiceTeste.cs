@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using MinimalsAPI.Dominio.DTOs;
 using MinimalsAPI.Dominio.Entidades;
 using MinimalsAPI.Dominio.Servicos;
 using MinimalsAPI.Infraestrutura.DatabaseContext;
@@ -24,39 +24,43 @@ namespace MinimalsAPITeste.Dominio.Servicos
         [TestMethod]
         public void TestandoSalvarAdministrador()
         {
-            // Arrange         
+            // Arrange
+            using MinimalsAPIContexto context = CriarContextoTeste();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            AdministradorService service = new(context);
+
             Administrador administrador = new()
             {
                 Email = "teste@teste.com",
                 Senha = "Teste123",
                 Perfil = "Admin"
             };
-            using MinimalsAPIContexto context = CriarContextoTeste();
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-            AdministradorService service = new(context);
 
             // Act
             service.AdicionarAdministrador(administrador);
 
             // Assert
             Assert.AreEqual(1, service.RetornarTodos(1).Count);
+            Assert.AreEqual("teste@teste.com", administrador.Email);
+            Assert.AreEqual("Admin", administrador.Perfil);
         }
 
         [TestMethod]
         public void TestandoRetornarPorId()
         {
-            // Arrange         
+            // Arrange
+            using MinimalsAPIContexto context = CriarContextoTeste();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            AdministradorService service = new(context); 
+            
             Administrador administrador = new()
             {
                 Email = "teste@teste.com",
                 Senha = "Teste123",
                 Perfil = "Admin"
             };
-            using MinimalsAPIContexto context = CriarContextoTeste();
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-            AdministradorService service = new(context);
 
             // Act
             service.AdicionarAdministrador(administrador);
@@ -93,6 +97,64 @@ namespace MinimalsAPITeste.Dominio.Servicos
             Assert.AreEqual(10, service.RetornarTodos(1).Count);
         }
 
+        [TestMethod]
+        public void TestandoLoginComSucesso()
+        {
+            // Arrange
+            using MinimalsAPIContexto context = CriarContextoTeste();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            AdministradorService service = new(context);
 
+            Administrador administrador = new()
+            {
+                Email = "teste@teste.com",
+                Senha = "Teste123",
+                Perfil = "Admin"
+            };
+            service.AdicionarAdministrador(administrador);
+
+            LoginDTO loginDTO = new()
+            {
+                Email = "teste@teste.com",
+                Senha = "Teste123",
+            };
+
+            // Act
+            Administrador? administradorLogado = service.Login(loginDTO);
+
+            // Assert
+            Assert.IsNotNull(administradorLogado);
+        }
+
+        [TestMethod]
+        public void TestandoLoginSemSucesso()
+        {
+            // Arrange
+            using MinimalsAPIContexto context = CriarContextoTeste();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            AdministradorService service = new(context);
+
+            Administrador administrador = new()
+            {
+                Email = "teste@teste.com",
+                Senha = "Teste123",
+                Perfil = "Admin"
+            };
+            service.AdicionarAdministrador(administrador);
+
+            LoginDTO loginDTO = new()
+            {
+                Email = "teste@teste.com",
+                Senha = "SenhaErrada",
+            };
+
+            // Act
+            Administrador? administradorLogado = service.Login(loginDTO);
+
+            // Assert
+            Assert.IsNull(administradorLogado);
+        }
     }
 }

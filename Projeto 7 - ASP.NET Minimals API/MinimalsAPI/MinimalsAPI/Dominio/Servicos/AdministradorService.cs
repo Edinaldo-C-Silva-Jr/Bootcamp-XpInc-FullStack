@@ -24,16 +24,15 @@ namespace MinimalsAPI.Dominio.Servicos
             _context = context;
         }
 
-        public Administrador? Login(LoginDTO loginDTO)
-        {
-            // Retorna o primeiro administrador cujo e-mail e senha coincidem com os enviados no login.
-            return _context.Administradores.Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha).FirstOrDefault();
-        }
-
         public void AdicionarAdministrador(Administrador administrador)
         {
             _context.Administradores.Add(administrador);
             _context.SaveChanges();
+        }
+
+        public Administrador? RetornaPorId(int id)
+        {
+            return _context.Administradores.Where(v => v.Id == id).FirstOrDefault();
         }
 
         public List<Administrador> RetornarTodos(int pagina)
@@ -54,9 +53,10 @@ namespace MinimalsAPI.Dominio.Servicos
             return query.ToList();
         }
 
-        public Administrador? RetornaPorId(int id)
+        public Administrador? Login(LoginDTO loginDTO)
         {
-            return _context.Administradores.Where(v => v.Id == id).FirstOrDefault();
+            // Retorna o primeiro administrador cujo e-mail e senha coincidem com os enviados no login.
+            return _context.Administradores.Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha).FirstOrDefault();
         }
     }
 }

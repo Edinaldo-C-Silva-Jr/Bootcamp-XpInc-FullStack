@@ -23,6 +23,17 @@ namespace MinimalsAPI.Dominio.Servicos
             _context = context;
         }
 
+        public void AdicionarVeiculo(Veiculo veiculo)
+        {
+            _context.Veiculos.Add(veiculo);
+            _context.SaveChanges();
+        }
+
+        public Veiculo? RetornaPorId(int id)
+        {
+            return _context.Veiculos.Where(v => v.Id == id).FirstOrDefault();
+        }
+
         public List<Veiculo> RetornarTodos(int pagina = 1, string? nome = null, string? marca = null)
         {
             if (pagina < 1)
@@ -49,17 +60,6 @@ namespace MinimalsAPI.Dominio.Servicos
             query = query.Skip((pagina - 1) * itensPorPagina).Take(itensPorPagina);
 
             return query.ToList();
-        }
-
-        public Veiculo? RetornaPorId(int id)
-        {
-            return _context.Veiculos.Where(v => v.Id == id).FirstOrDefault();
-        }
-
-        public void IncluirVeiculo(Veiculo veiculo)
-        {
-            _context.Veiculos.Add(veiculo);
-            _context.SaveChanges();
         }
 
         public void AtualizarVeiculo(Veiculo veiculo)

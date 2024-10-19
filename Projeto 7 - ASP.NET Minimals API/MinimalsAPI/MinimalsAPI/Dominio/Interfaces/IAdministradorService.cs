@@ -9,17 +9,17 @@ namespace MinimalsAPI.Dominio.Interfaces
     public interface IAdministradorService
     {
         /// <summary>
-        /// Recebe os dados de login e realiza o login caso eles sejam válidos.
-        /// </summary>
-        /// <param name="loginDTO">Os dados utilizados para realizar o login.</param>
-        /// <returns>Um administrador, caso os dados sejam válidos.</returns>
-        public Administrador? Login(LoginDTO loginDTO);
-
-        /// <summary>
         /// Recebe uma instância de administrador e insere no banco de dados.
         /// </summary>
         /// <param name="administrador">O administrador a ser inserido no banco.</param>
         public void AdicionarAdministrador(Administrador administrador);
+
+        /// <summary>
+        /// Retorna um administrador pelo Id, se existir.
+        /// </summary>
+        /// <param name="id">O Id od administrador para retornar.</param>
+        /// <returns>O administrador solicitado, que pode ser nulo.</returns>
+        public Administrador? RetornaPorId(int id);
 
         /// <summary>
         /// Retorna todos os administradores cadastrados, com base no valor da página.
@@ -29,10 +29,10 @@ namespace MinimalsAPI.Dominio.Interfaces
         public List<Administrador> RetornarTodos(int pagina);
 
         /// <summary>
-        /// Retorna um administrador pelo Id, se existir.
+        /// Recebe os dados de login e realiza o login caso eles sejam válidos.
         /// </summary>
-        /// <param name="id">O Id od administrador para retornar.</param>
-        /// <returns>O administrador solicitado, que pode ser nulo.</returns>
-        public Administrador? RetornaPorId(int id);
+        /// <param name="loginDTO">Os dados utilizados para realizar o login.</param>
+        /// <returns>Um administrador, caso os dados sejam válidos.</returns>
+        public Administrador? Login(LoginDTO loginDTO);
     }
 }

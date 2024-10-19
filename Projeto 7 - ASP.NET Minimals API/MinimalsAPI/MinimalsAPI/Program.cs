@@ -282,7 +282,7 @@ internal class Program
                 Ano = veiculoDTO.Ano
             };
 
-            veiculoService.IncluirVeiculo(veiculo);
+            veiculoService.AdicionarVeiculo(veiculo);
 
             return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
         })
