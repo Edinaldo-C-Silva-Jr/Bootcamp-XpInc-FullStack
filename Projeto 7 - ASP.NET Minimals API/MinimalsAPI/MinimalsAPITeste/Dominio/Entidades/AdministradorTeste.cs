@@ -2,9 +2,15 @@
 
 namespace MinimalsAPITeste.Dominio.Entidades
 {
+    /// <summary>
+    /// Classe para testes de unidade com a classe Administrador.
+    /// </summary>
     [TestClass]
     public class AdministradorTeste
     {
+        /// <summary>
+        /// Testa os métodos Get e Set das propriedades do Administrador.
+        /// </summary>
         [TestMethod]
         public void TestarGetSetPropriedades()
         {

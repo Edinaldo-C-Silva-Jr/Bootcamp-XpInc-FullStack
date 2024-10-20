@@ -17,10 +17,13 @@ using System.Text;
 
 namespace MinimalsAPI
 {
+    /// <summary>
+    /// Classe responsável por adicionar os serviços e configurar a aplicação.
+    /// </summary>
     public class StartUp
     {
         public IConfiguration Configuration { get; set; }
-        private string Key;
+        private readonly string Key;
 
         public StartUp(IConfiguration configuration)
         {
@@ -93,7 +96,7 @@ namespace MinimalsAPI
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             // Configura o aplicativo para usar o Swagger com a interface.
             app.UseSwagger();

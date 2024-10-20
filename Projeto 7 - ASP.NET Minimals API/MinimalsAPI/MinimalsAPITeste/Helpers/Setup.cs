@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MinimalsAPITeste.Helpers
 {
+    /// <summary>
+    /// Classe usada para iniciar a aplicação para realizar os testes.
+    /// </summary>
     public class Setup
     {
         public const string PORT = "5001";
@@ -14,6 +17,10 @@ namespace MinimalsAPITeste.Helpers
         public static WebApplicationFactory<StartUp> http = default!;
         public static HttpClient client = default!;
 
+        /// <summary>
+        /// Inicia o serviço da aplicação.
+        /// </summary>
+        /// <param name="contextTest">O contexto de teste para utilizar na aplicação.</param>
         public static void ClassInit(TestContext contextTest)
         {
             testContext = contextTest;
@@ -31,6 +38,9 @@ namespace MinimalsAPITeste.Helpers
             client = http.CreateClient();
         }
 
+        /// <summary>
+        /// Libera os recursos utilizado na aplicação.
+        /// </summary>
         public static void ClassCleanup()
         {
             http.Dispose();

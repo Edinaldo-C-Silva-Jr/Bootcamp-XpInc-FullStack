@@ -4,8 +4,14 @@ using MinimalsAPI.Dominio.Interfaces;
 
 namespace MinimalsAPITeste.Mocks
 {
+    /// <summary>
+    /// Classe de mock para testar o AdministradorService.
+    /// </summary>
     public class AdministradorServicoMock : IAdministradorService
     {
+        /// <summary>
+        /// Utiliza uma lista para guardar os registros criados pelo teste em memória.
+        /// </summary>
         private static List<Administrador> administradores =
             [
                 new Administrador{

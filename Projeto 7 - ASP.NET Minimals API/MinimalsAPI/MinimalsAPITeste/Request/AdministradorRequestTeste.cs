@@ -2,7 +2,6 @@
 using MinimalsAPITeste.Helpers;
 using System.Text.Json;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 using System.Net;
 using MinimalsAPI.Dominio.ModelViews;
 
@@ -24,7 +23,7 @@ namespace MinimalsAPITeste.Request
         }
 
         [TestMethod]
-        public async Task TestarRotaDeLogin()
+        public async Task TestarRotaDeLogin_LoginComSucesso()
         {
             // Arrange
             LoginDTO loginDTO = new()
@@ -52,6 +51,28 @@ namespace MinimalsAPITeste.Request
             Assert.IsNotNull("Admin", administradorLogado.Perfil);
 
             Console.WriteLine(administradorLogado.Token);
+        }
+
+        [TestMethod]
+        public async Task TestarRotaDeLogin_LoginSemSucesso()
+        {
+            // Arrange
+            LoginDTO loginDTO = new()
+            {
+                Email = "administrador@teste.com",
+                Senha = "SenhaErrada"
+            };
+
+            StringContent content = new(JsonSerializer.Serialize(loginDTO), Encoding.UTF8, "Application/json");
+
+            // Act
+            HttpResponseMessage response = await Setup.client.PostAsync("/login", content);
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+
+            string result = await response.Content.ReadAsStringAsync();
+            Assert.AreEqual("", result);
         }
     }
 }

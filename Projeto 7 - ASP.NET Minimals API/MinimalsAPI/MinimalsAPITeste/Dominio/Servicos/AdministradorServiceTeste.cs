@@ -9,6 +9,10 @@ namespace MinimalsAPITeste.Dominio.Servicos
     [TestClass]
     public class AdministradorServiceTeste
     {
+        /// <summary>
+        /// Cria o contexto de banco de dados para ser usado nos testes.
+        /// </summary>
+        /// <returns>Um contexto para ser usado em testes.</returns>
         private MinimalsAPIContexto CriarContextoTeste()
         {
             var builder = new ConfigurationBuilder()
@@ -21,6 +25,9 @@ namespace MinimalsAPITeste.Dominio.Servicos
             return new MinimalsAPIContexto(configuration);
         }
 
+        /// <summary>
+        /// Testa o método AdicionarAdministrador, criando um Administrador para salvar no banco de dados.
+        /// </summary>
         [TestMethod]
         public void TestandoSalvarAdministrador()
         {
@@ -46,6 +53,9 @@ namespace MinimalsAPITeste.Dominio.Servicos
             Assert.AreEqual("Admin", administrador.Perfil);
         }
 
+        /// <summary>
+        /// Testa o método RetornarPorId, criando um Administrador para salvar no banco de dados e depois buscando pelo Id.
+        /// </summary>
         [TestMethod]
         public void TestandoRetornarPorId()
         {
@@ -70,6 +80,11 @@ namespace MinimalsAPITeste.Dominio.Servicos
             Assert.IsNotNull(administradorDoBanco);
             Assert.AreEqual(1, administradorDoBanco.Id);
         }
+
+        /// <summary>
+        /// Testa o método RetornarTodos. Verifica se esse método retorna um máximo de 10 Administradores por página.
+        /// Para isso, são criados 15 Administradores no banco de dados.
+        /// </summary>
 
         [TestMethod]
         public void TestandoRetornarDezAdministradoresPorPagina()
@@ -97,6 +112,10 @@ namespace MinimalsAPITeste.Dominio.Servicos
             Assert.AreEqual(10, service.RetornarTodos(1).Count);
         }
 
+        /// <summary>
+        /// Testa o resultado de sucesso no método de Login.
+        /// Para isso, é criado um administrador no banco de dados, e então o login é realizado com os dados desse administrador.
+        /// </summary>
         [TestMethod]
         public void TestandoLoginComSucesso()
         {
@@ -126,6 +145,11 @@ namespace MinimalsAPITeste.Dominio.Servicos
             // Assert
             Assert.IsNotNull(administradorLogado);
         }
+
+        /// <summary>
+        /// Testa o resultado de falha no método de Login.
+        /// Para isso, é criado um administrador no banco de dados, e então o login é realizado com dados diferentes dos desse administrador.
+        /// </summary>
 
         [TestMethod]
         public void TestandoLoginSemSucesso()

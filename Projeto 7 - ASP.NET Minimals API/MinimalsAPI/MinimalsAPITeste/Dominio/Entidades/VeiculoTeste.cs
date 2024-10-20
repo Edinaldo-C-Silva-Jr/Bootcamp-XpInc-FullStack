@@ -2,9 +2,15 @@
 
 namespace MinimalsAPITeste.Dominio.Entidades
 {
+    /// <summary>
+    /// Classe para testes de unidade com a classe Veiculo.
+    /// </summary>
     [TestClass]
     public class VeiculoTeste
     {
+        /// <summary>
+        /// Testa os métodos Get e Set das propriedades do Veiculo.
+        /// </summary>
         [TestMethod]
         public void TestarGetSetPropriedades()
         {
