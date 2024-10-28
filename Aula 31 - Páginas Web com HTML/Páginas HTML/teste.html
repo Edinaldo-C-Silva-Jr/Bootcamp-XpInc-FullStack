@@ -4,49 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Primeira Pagina HTML</title>
+    <style>
+        body {
+            margin: 0;
+            padding-left: 10px;
+            background-color: #8060C0;
+            color: #F0F0A0
+        }
+        h1 {
+            font-size: 36px;
+            color: #FF5040
+        }
+        h2 {
+            font-size: 33px;
+            color: #FF7040;
+        }
+        h3 {
+            font-size: 30px;
+            color: #FF9040;
+        }
+        h4 {
+            font-size: 27px;
+            color: #FFB040;
+        }
+        h5 {
+            font-size: 24px;
+            color: #FFD040;
+        }
+        h6 {
+            font-size: 21px;
+            color: #FFF040;
+        }
+        a {
+            color: #00B0F0;
+        }
+        a:hover {
+            color: #00F080
+        }
+        .form-labels {
+            font-size: 14px;
+            color: #80F080;
+        }
+        #nome {
+            background-color: #A0F0F0;
+        }
+        #email {
+            background-color: #F0F0A0;
+        }
+        #mensagem {
+            background-color: #F0A0F0;
+        }
+        .flex {
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+        }
+        .item {
+            width: 80px;
+            height: 80px;
+            background-color: #90D060;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Títulos da Página</h1>
-        <h2>Título 2</h2>
-        <h3>Título 3</h3>
-        <h4>Título 4</h4>
-        <h5>Título 5</h5>
-        <h6>Título 6</h6>
+        <h1>Título Principal</h1>
+        <h2>Título Secundário</h2>
+        <h3>Subtítulo Principal</h3>
+        <h4>Subtítulo Secundário</h4>
+        <h5>Subtítulo Terciário</h5>
+        <h6>Texto com Ênfase</h6>
     </header>
     <article>
         <div>
             <h3>Texto</h3>
-            <p>Este é um parágrafo de texto.</p>
+            <p>Este é um parágrafo de texto. É nele onde é escrito todo o conteúdo da página.</p>
+            <p>A área abaixo é uma área de texto, onde é possível escrever algo ao clicar nela..</p>
             <textarea>Digite Algo aqui.</textarea>
-            <button>Teste</button>
         </div>
         <div>
-            <a href="/teste.html">Clique Aqui!</a>
+            <h3>Link</h3>
+            <p>Este é um link, que leva para outra página ao clicar nele. Este link apenas recarrega esta página..</p>
+            <a href="">Clique Aqui para recarregar a página!</a>
         </div>
     </article>
     <section>
-        <h3>Lista Não Ordenada</h3>
+        <h3>Listas</h3>
+        <h5>Lista Não Ordenada</h5>
         <ul>
             <li>Item 1</li>
             <li>Item 2</li>
             <li>Item 3</li>
             <li>Item 4</li>
         </ul>
-        <h3>Lista Ordenada</h3>
+        <h5>Lista Ordenada</h5>
         <ol type="A" start="1">
             <li>Item 1</li>
             <li>Item 2</li>
             <li>Item 3</li>
             <li>Item 4</li>
         </ol>
-        <h3>Lista por Definição</h3>
+        <h5>Lista por Definição</h5>
         <dl>
-            <dt>Titulo da lista 1</dt>
-            <dd>Item da lista 1</dd>
-            <dt>Titulo da lista 2</dt>
-            <dd>Item da lista 2</dd>
+            <dt>Primeiro item da lista principal</dt>
+            <dd>Primeiro item da primeira lista secundária</dd>
+            <dd>Outro item da primeira lista secundária</dd>
+            <dt>Segundo item da lista principal</dt>
+            <dd>Primeiro item da segunda lista secundária</dd>
         </dl>
+        <h5>Lista Aninhada</h5>
+        <ol type="A" start="1">
+            <li>Item 1</li>
+            <li>
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+        </ol>
     </section>
     <section>
         <h3>Tabela</h3>
@@ -77,21 +160,29 @@
         <h3>Formulário</h3>
         <form action="" method="get">
             <div>
-                <label for="nome">Nome</label>
+                <label for="nome" class="form-labels">Nome</label>
                 <input type="text" id="nome" name="Nome" />
             </div>
             <div>
-                <label for="email">Email</label>
+                <label for="email" class="form-labels">Email</label>
                 <input type="text" id="email" name="Email" />
             </div>
             <div>
-                <label for="mensagem">Mensagem</label>
-                <textarea type="text" id="nome" name="Nome"></textarea>
+                <label for="mensagem" class="form-labels">Mensagem</label>
+                <textarea type="text" id="mensagem" name="Nome"></textarea>
             </div>
             <div>
                 <button>Enviar</button>
             </div>
         </form>
+    </section>
+    <section>
+        <h3>FlexBox</h3>
+        <div class="flex">
+            <div class="item">A</div>
+            <div class="item">B</div>
+            <div class="item">C</div>
+        </div>
     </section>
 </body>
 </html>
