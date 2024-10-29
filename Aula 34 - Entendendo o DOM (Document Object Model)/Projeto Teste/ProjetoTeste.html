@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primeira Pagina HTML</title>
+    <style>
+        body {
+            background-color: #905090;
+            color: #F0D090;
+        }
+        .flex {
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+        }
+        .item {
+            width: 80px;
+            height: 80px;
+            background-color: #90D060;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+        }
+        input {
+            margin-top: 20px;
+            width: 90%;
+            height: 20px;
+        }
+        #label-email {
+            margin-top: 20px;
+            width: 10%;
+            height: 20px;
+        }
+        button {
+            margin-top: 30px;
+            width: 24%;
+            height: 40px;
+            color: #C0C040;
+            background-color: #5050d0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Página de Teste</h1>
+    </header>
+    <section>
+        <h3 id="title">FlexBox</h3>
+        <div class="flex" id="lista">
+            <div class="item" id="boxA">A</div>
+            <div class="item" id="boxB">B</div>
+            <div class="item" id="boxC">C</div>
+        </div>
+        <div>
+            <label for="email" id="label-email">E-mail</label>
+            <input id="email" name="email" />
+        </div>
+        <div>
+            <button onclick="window.document.getElementById('title').remove()">Remover Titulo</button>
+            <button onclick="window.document.getElementById('boxA').remove()">Remover Box A</button>
+            <button onclick="window.document.getElementById('boxB').remove()">Remover Box B</button>
+            <button onclick="window.document.getElementById('boxC').remove()">Remover Box C</button>
+        </div>
+    </section>
+</body>
+</html>
