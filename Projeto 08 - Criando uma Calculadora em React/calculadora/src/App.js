@@ -1,8 +1,12 @@
+import { Container, Content } from "./styles";
+
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <Container>
+      <Content>
+        Olá!
+      </Content>
+    </Container>
   );
 }
 
