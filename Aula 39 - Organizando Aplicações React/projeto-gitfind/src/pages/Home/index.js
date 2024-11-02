@@ -1,5 +1,6 @@
 import { Header } from "../../components/Header";
 import background from "../../assets/Github-Background.png";
+import { ItemList } from "../../components/ItemList";
 import "./styles.css";
 
 function App() {
@@ -30,6 +31,12 @@ function App() {
                         </div>
                     </section>
                     <hr />
+                    <section>
+                        <h3 className="repositorio">Repositórios</h3>
+                        <ItemList title="Teste1" description="Descrição Teste"/>
+                        <ItemList title="Teste2" description="Descrição Teste"/>
+                        <ItemList title="Teste3" description="Descrição Teste"/>
+                    </section>
                 </main>
             </div>
         </div>
