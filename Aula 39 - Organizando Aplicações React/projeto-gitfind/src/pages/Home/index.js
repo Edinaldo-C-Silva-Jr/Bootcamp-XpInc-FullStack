@@ -1,9 +1,34 @@
+import { useState } from "react";
 import { Header } from "../../components/Header";
 import background from "../../assets/Github-Background.png";
 import { ItemList } from "../../components/ItemList";
 import "./styles.css";
 
 function App() {
+    const [user, setUser] = useState("");
+    const [currentUser, setCurrentUser] = useState(null);
+    const [repos, setRepos] = useState(null);
+
+    const handleGetData = async () => {
+        const userData = await fetch(`https://api.github.com/users/${user}`);
+        const newUser = await userData.json();
+
+        if (newUser.name) {
+            const { avatar_url, name, bio, login } = newUser;
+            setCurrentUser({ avatar_url, name, bio, login });
+
+            const reposData = await fetch(`https://api.github.com/users/${user}/repos`);
+            const newRepos = await reposData.json();
+
+            if (newRepos.length) {
+                setRepos(newRepos);
+            }
+        } else {
+            setCurrentUser(null);
+            setRepos(null);
+        }
+    };
+
     return (
         <div className="App">
             <Header />
@@ -15,28 +40,39 @@ function App() {
                 />
                 <main className="info">
                     <section>
-                        <input name="usuario" placeholder="@username" />
-                        <button>Buscar</button>
+                        <input
+                            name="usuario"
+                            value={user}
+                            onChange={(event) => setUser(event.target.value)}
+                            placeholder="@username"
+                        />
+                        <button onClick={handleGetData}>Buscar</button>
                     </section>
-                    <section className="perfil">
+                    {currentUser?.name ? (
+                        <section className="perfil">
                         <img
-                            src="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                            src={currentUser.avatar_url}
                             className="profile-image"
                             alt="Profile's image."
                         />
                         <div>
-                            <h3>Nome do Usuário</h3>
-                            <span>@nomedousuario</span>
-                            <p>Descrição do Usuário.</p>
+                            <h3>{currentUser.name}</h3>
+                            <span>@{currentUser.login}</span>
+                            <p>{currentUser.bio}</p>
                         </div>
                     </section>
-                    <hr />
-                    <section>
-                        <h3 className="repositorio">Repositórios</h3>
-                        <ItemList title="Teste1" description="Descrição Teste"/>
-                        <ItemList title="Teste2" description="Descrição Teste"/>
-                        <ItemList title="Teste3" description="Descrição Teste"/>
+                    ) : null}
+                    {repos?.length ? (
+                        <section>
+                        <h4 className="repositorio">Repositórios</h4>
+                        {repos.map(repo => (
+                            <ItemList
+                            title={repo.name}
+                            description={repo.description}
+                        />
+                        ))}
                     </section>
+                    ) : null}
                 </main>
             </div>
         </div>
