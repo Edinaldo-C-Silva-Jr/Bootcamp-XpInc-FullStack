@@ -19,3 +19,23 @@
     margin-top: 30px;
     color: #ffffff;
 }
+
+input {
+    border: 1px solid #999999;
+    border-radius: 20px;
+    background: transparent;
+    width: 70%;
+    font-size: 18px;
+    padding: 10px;
+}
+
+button {
+    margin-left: 10px;
+    border: 1px solid #c0c0c0;
+    border-radius: 20px;
+    background-color: #20333b;
+    color: #ffffff;
+    width: 20%;
+    font-size: 18px;
+    padding: 10px;
+}

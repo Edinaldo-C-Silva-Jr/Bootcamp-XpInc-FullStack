@@ -12,9 +12,12 @@ function App() {
                     className="background"
                     alt="background of the application."
                 />
-                <section className="info">
-                    Teste
-                </section>
+                <main className="info">
+                    <section>
+                        <input name="usuario" placeholder="@username" />
+                        <button>Buscar</button>
+                    </section>
+                </main>
             </div>
         </div>
     );
