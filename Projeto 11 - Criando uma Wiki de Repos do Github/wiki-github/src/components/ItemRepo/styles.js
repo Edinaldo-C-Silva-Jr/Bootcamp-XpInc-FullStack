@@ -27,12 +27,18 @@ export const ItemContainer = styled.div`
         color: #20a0d0;
     }
 
-    a.remover {
+    .remover {
+        width: 20%;
+        border: 1px solid #fafafa;
+        border-radius: 8px;
+        background-color: #323840;
         color: #ff9090;
     }
 
-    a.remover: hover {
+    .remover: hover {
         color: #c06060;
+        background: transparent;
+        border: 1px solid #fafafa60;
     }
 
     hr {
