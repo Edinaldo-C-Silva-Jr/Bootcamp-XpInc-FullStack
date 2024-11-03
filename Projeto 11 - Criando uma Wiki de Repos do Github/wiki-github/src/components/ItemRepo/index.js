@@ -2,6 +2,7 @@ import React from "react";
 import { ItemContainer } from "./styles";
 
 const ItemRepo = ({repo, handleRemoveRepo}) => {
+    // Chama a função de remover o repositório, passando o Id do repositório que corresponde a esse ItemRepo.
     const handleRemove = () => {
         handleRemoveRepo(repo.id);
     }
