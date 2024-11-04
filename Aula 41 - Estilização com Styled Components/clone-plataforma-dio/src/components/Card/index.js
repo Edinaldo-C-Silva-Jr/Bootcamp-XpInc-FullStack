@@ -17,7 +17,7 @@ const Card = () => {
             <ImageBackground />
             <Content>
                 <UserInfo>
-                    <UserPicture />
+                    <UserPicture src="https://avatars.githubusercontent.com/u/122048298?v=4&size=64" />
                     <section>
                         <h4>Edinaldo Silva</h4>
                         <p>Há 8 minutos</p>
