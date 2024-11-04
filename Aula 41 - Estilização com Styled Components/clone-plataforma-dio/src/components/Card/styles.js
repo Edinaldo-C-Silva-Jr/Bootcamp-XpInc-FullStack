@@ -7,9 +7,10 @@ export const CardContainer = styled.div`
     margin-bottom: 24px;
 `;
 
-export const ImageBackground = styled.div`
+export const ImageBackground = styled.img`
     width: 100%;
     height: 160px;
+    object-fit: cover;
 `;
 
 export const Content = styled.div`

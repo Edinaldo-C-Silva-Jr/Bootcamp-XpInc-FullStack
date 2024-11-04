@@ -11,30 +11,38 @@ import {
     UserPicture,
 } from "./styles";
 
-const Card = () => {
+const Card = ({
+    username,
+    imageLink,
+    userImage,
+    infoHeader,
+    infoContent,
+    time = "0 minutos",
+    likes = 0,
+    stacks = [],
+}) => {
     return (
         <CardContainer>
-            <ImageBackground />
+            <ImageBackground src={imageLink} />
             <Content>
                 <UserInfo>
-                    <UserPicture src="https://avatars.githubusercontent.com/u/122048298?v=4&size=64" />
+                    <UserPicture src={userImage} />
                     <section>
-                        <h4>Edinaldo Silva</h4>
-                        <p>Há 8 minutos</p>
+                        <h4>{username}</h4>
+                        <p>Há {time}.</p>
                     </section>
                 </UserInfo>
                 <PostInfo>
-                    <h4>Projeto para curso de HTML e CSS.</h4>
+                    <h4>{infoHeader}</h4>
                     <p>
-                        Projeto feuto no curso de HTML e CSS no bootcamp XP Inc
-                        - Desenvolvimento Full Stack...
-                        <strong>Saiba Mais</strong>
+                        {infoContent}
+                        <strong>... Saiba Mais</strong>
                     </p>
                 </PostInfo>
                 <HasInfo>
-                    <h4>#HTML #CSS #JavaScript</h4>
+                    <h4>{stacks.map((stack) => `#${stack} `)}</h4>
                     <p>
-                        <FiThumbsUp /> 10
+                        <FiThumbsUp /> {likes}
                     </p>
                 </HasInfo>
             </Content>

@@ -11,13 +11,79 @@ const Feed = () => {
             <Container>
                 <Column flex={3}>
                     <Title>Feed</Title>
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    <Card
+                        username="Edinaldo Silva"
+                        userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                        imageLink="https://th.bing.com/th/id/OIP.XTIeUOHB_fSYyFELXefS3wHaHa?rs=1&pid=ImgDetMain"
+                        time="10 minutos"
+                        infoHeader="Projeto para curso de HTML e CSS."
+                        infoContent="Projeto do bootcamp XP Inc - Desenvolvimento Full Stack..."
+                        likes={2}
+                        stacks={["HTML", "CSS", "JavaScript"]}
+                    />
+                    <Card
+                        username="Edinaldo Silva"
+                        userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                        imageLink="https://mildaintrainings.com/wp-content/uploads/2017/11/react-logo.png"
+                        time="30 minutos"
+                        infoHeader="Projeto para curso de React."
+                        infoContent="Projeto do bootcamp XP Inc - Desenvolvimento Full Stack..."
+                        likes={5}
+                    />
+                    <Card
+                        username="Edinaldo Silva"
+                        userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                        imageLink="https://th.bing.com/th/id/OIP.XTIeUOHB_fSYyFELXefS3wHaHa?rs=1&pid=ImgDetMain"
+                        time="50 minutos"
+                        infoHeader="Projeto para curso de HTML."
+                        infoContent="Projeto do bootcamp XP Inc - Desenvolvimento Full Stack..."
+                        likes={12}
+                    />
+                    <Card
+                        username="Edinaldo Silva"
+                        userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                        imageLink="https://wallpaperaccess.com/full/1555163.jpg"
+                        time="2 horas"
+                        infoHeader="Projeto para curso de JavaScript."
+                        infoContent="Projeto do bootcamp XP Inc - Desenvolvimento Full Stack..."
+                        likes={7}
+                    />
+                    <Card
+                        username="Edinaldo Silva"
+                        userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                        imageLink="https://mildaintrainings.com/wp-content/uploads/2017/11/react-logo.png"
+                        time="3 horas"
+                        infoHeader="Projeto para curso de React."
+                        infoContent="Projeto do bootcamp XP Inc - Desenvolvimento Full Stack..."
+                        likes={5}
+                    />
+                    <Card
+                        username="Edinaldo Silva"
+                        userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                        imageLink="https://th.bing.com/th/id/OIP.XTIeUOHB_fSYyFELXefS3wHaHa?rs=1&pid=ImgDetMain"
+                        time="6 horas"
+                        infoHeader="Projeto para curso de HTML e CSS."
+                        infoContent="Projeto do bootcamp XP Inc - Desenvolvimento Full Stack..."
+                        likes={13}
+                    />
+                    <Card
+                        username="Edinaldo Silva"
+                        userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                        imageLink="https://wallpaperaccess.com/full/1555163.jpg"
+                        time="12 horas"
+                        infoHeader="Projeto para curso de JavaScript."
+                        infoContent="Projeto do bootcamp XP Inc - Desenvolvimento Full Stack..."
+                        likes={25}
+                    />
+                    <Card
+                        username="Edinaldo Silva"
+                        userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                        imageLink="https://th.bing.com/th/id/OIP.XTIeUOHB_fSYyFELXefS3wHaHa?rs=1&pid=ImgDetMain"
+                        time="1 dia"
+                        infoHeader="Projeto para curso de HTML."
+                        infoContent="Projeto do bootcamp XP Inc - Desenvolvimento Full Stack..."
+                        likes={30}
+                    />
                 </Column>
                 <Column flex={1}>
                     <TitleHighlight># Ranking Top 5 da Semana</TitleHighlight>
