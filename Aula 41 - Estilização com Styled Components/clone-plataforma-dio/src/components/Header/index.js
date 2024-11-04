@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../Button";
-import logoDio from "../../assets/logo-dio.jpg";
+import logoDio from "../../assets/logo-dio.png";
 
 import {
     BuscarInputContainer,

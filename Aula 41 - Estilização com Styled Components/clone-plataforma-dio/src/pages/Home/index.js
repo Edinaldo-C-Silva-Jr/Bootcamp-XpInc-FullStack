@@ -3,6 +3,8 @@ import { Header } from "../../components/Header";
 import { Container, TextContent, Title, TitleHighlight } from "./styles";
 import { Button } from "../../components/Button";
 
+import banner from "../../assets/banner.png"
+
 const Home = () => {
     return (
         <div>
@@ -24,6 +26,9 @@ const Home = () => {
                         variant="secondary"
                         onClick={() => null}
                     ></Button>
+                </section>
+                <section>
+                    <img src={banner} alt="Page banner" />
                 </section>
             </Container>
         </div>
