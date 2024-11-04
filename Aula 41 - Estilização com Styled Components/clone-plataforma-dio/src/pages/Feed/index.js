@@ -1,13 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Card } from "../../components/Card";
 import { Container, Column, Title, TitleHighlight } from "./styles";
 import { UserInfo } from "../../components/UserInfo";
 
 const Feed = () => {
+    const navigate = useNavigate();
+
+    const handleClickSair = () => {
+        navigate("/");
+    };
+
     return (
         <div>
-            <Header />
+            <Header
+                usuarioAutenticado={true}
+                userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
+                onClickSair={handleClickSair}
+            />
             <Container>
                 <Column flex={3}>
                     <Title>Feed</Title>

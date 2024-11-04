@@ -5,6 +5,7 @@ export const ButtonContainer = styled.button`
     border-radius: 22px;
     position: relative;
     border: 0;
+    margin-left: 10px;
 
     color: #ffffff;
     padding: 2px 12px;
@@ -19,7 +20,7 @@ export const ButtonContainer = styled.button`
     // Recebe um parâmetro "variant", que define o tipo de estilização a ser usada.
     // Caso variant não seja "primary", usa a estilização definida abaixo.
     ${({ variant }) =>
-        variant !== "primary" &&
+        variant === "secondary" &&
         css`
             min-width: 167px;
             height: 33px;
@@ -37,5 +38,12 @@ export const ButtonContainer = styled.button`
                 height: calc(100% + 10px);
                 border-radius: 22px;
             }
+        `}
+
+    ${({ variant }) =>
+        variant === "tertiary" &&
+        css`
+            min-width: 60px;
+            height: 30px;
         `}
 `;

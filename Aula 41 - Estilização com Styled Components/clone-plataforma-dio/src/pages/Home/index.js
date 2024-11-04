@@ -1,14 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Header } from "../../components/Header";
 import { Container, TextContent, Title, TitleHighlight } from "./styles";
 import { Button } from "../../components/Button";
 
-import banner from "../../assets/banner.png"
+import banner from "../../assets/banner.png";
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    const handleClickSignIn = () => {
+        navigate("/login");
+    };
+
     return (
         <div>
-            <Header />
+            <Header onClickEntrar={handleClickSignIn} />
             <Container>
                 <section>
                     <Title>
@@ -24,7 +32,7 @@ const Home = () => {
                     <Button
                         title="Começar agora"
                         variant="secondary"
-                        onClick={() => null}
+                        onClick={handleClickSignIn}
                     ></Button>
                 </section>
                 <section>
