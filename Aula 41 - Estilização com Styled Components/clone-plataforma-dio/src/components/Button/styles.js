@@ -4,11 +4,17 @@ export const ButtonContainer = styled.button`
     background: #565665;
     border-radius: 22px;
     position: relative;
+    border: 0;
 
     color: #ffffff;
     padding: 2px 12px;
     min-width: 120px;
     width: 100%;
+
+    &:hover {
+        opacity: 0.6;
+        cursor: pointer;
+    }
 
     // Recebe um parâmetro "variant", que define o tipo de estilização a ser usada.
     // Caso variant não seja "primary", usa a estilização definida abaixo.

@@ -21,8 +21,8 @@ const Header = () => {
                     <BuscarInputContainer>
                         <Input placeholder="Buscar..." />
                     </BuscarInputContainer>
-                    <Menu>Live Code</Menu>
-                    <Menu>Global</Menu>
+                    <Menu href="#">Live Code</Menu>
+                    <Menu href="#">Global</Menu>
                 </Row>
                 <Row>
                     <MenuRight href="#">Home</MenuRight>
