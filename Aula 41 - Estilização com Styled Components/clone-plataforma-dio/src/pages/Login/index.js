@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
+import { api } from "../../services/api";
 
 import {
     Column,
@@ -39,18 +40,27 @@ const Login = () => {
     const {
         control,
         handleSubmit,
-        formState: { errors, isValid },
+        formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
         mode: "onChange",
     });
 
-    console.log(isValid, errors);
-
     // Função que define o que fazer quando o botão Submit for usado no form.
-    const onSubmit = (data) => {
-        console.log(data);
-        handleClickLogin();
+    const onSubmit = async (formData) => {
+        try {
+            const { data } = await api.get(
+                `users?email=${formData.email}&senha=${formData.password}`
+            );
+            if (data.length === 1) {
+                console.log(data);
+                navigate("/feed");
+            } else {
+                alert("E-mail ou senha inválidos.");
+            }
+        } catch {
+            alert("Aconteceu um erro. Tente novamente.");
+        }
     };
 
     const handleClickLogin = () => {
