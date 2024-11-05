@@ -59,7 +59,7 @@ export const CriarText = styled.p`
     font-size: 14px;
     line-height: 19px;
 
-color: #e230d7;
+    color: #e230d7;
 `;
 
 export const TextContent = styled.p`

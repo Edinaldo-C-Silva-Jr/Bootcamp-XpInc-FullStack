@@ -1,6 +1,9 @@
 import React from "react";
 import { MdEmail, MdLock } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
@@ -18,8 +21,37 @@ import {
     Wrapper,
 } from "./styles";
 
+const schema = yup.object({
+    email: yup
+        .string()
+        .email("E-mail inválido.")
+        .required("Campo obrigatório!"),
+    password: yup
+        .string()
+        .min(6, "Mínimo 6 caracteres.")
+        .required("Campo obrigatório!"),
+});
+
 const Login = () => {
     const navigate = useNavigate();
+
+    // Utiliza o useForm para implementar o react hook forms.
+    const {
+        control,
+        handleSubmit,
+        formState: { errors, isValid },
+    } = useForm({
+        resolver: yupResolver(schema),
+        mode: "onChange",
+    });
+
+    console.log(isValid, errors);
+
+    // Função que define o que fazer quando o botão Submit for usado no form.
+    const onSubmit = (data) => {
+        console.log(data);
+        handleClickLogin();
+    };
 
     const handleClickLogin = () => {
         navigate("/feed");
@@ -42,21 +74,23 @@ const Login = () => {
                         <SubtitleLogin>
                             Faça seu login e make the change._
                         </SubtitleLogin>
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <Input
+                                name="email"
+                                control={control}
+                                errorMessage={errors?.email?.message}
                                 placeholder="E-mail"
                                 leftIcon={<MdEmail />}
                             />
                             <Input
+                                name="password"
+                                control={control}
+                                errorMessage={errors?.password?.message}
                                 placeholder="Senha"
                                 type="password"
                                 leftIcon={<MdLock />}
                             />
-                            <Button
-                                title="Entrar"
-                                variant="secondary"
-                                onClick={handleClickLogin}
-                            />
+                            <Button title="Entrar" variant="secondary" />
                         </form>
                         <Row>
                             <EsqueciText>Esqueci minha senha</EsqueciText>
