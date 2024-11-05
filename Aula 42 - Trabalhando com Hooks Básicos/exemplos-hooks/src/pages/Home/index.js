@@ -1,3 +1,4 @@
+import { TesteUseCallback } from "../../components/UseCallback";
 import { TesteUseMemo } from "../../components/UseMemo";
 import { TesteUseState } from "../../components/UseState";
 import { Container } from "./styles";
@@ -7,7 +8,7 @@ function App() {
         <TesteUseState />
         <TesteUseState />
         <TesteUseMemo />
-        <TesteUseState />
+        <TesteUseCallback />
     </Container>;
 }
 
