@@ -31,8 +31,9 @@ export const Text = styled.p`
 `
 
 export const Button = styled.button`
-    width: 20%;
-    height: 30px;
+    width: 10%;
+    min-width: 100px;
+    height: 40px;
     margin-left: 20;
     border: 1px solid #406080;
     border-radius: 10px;

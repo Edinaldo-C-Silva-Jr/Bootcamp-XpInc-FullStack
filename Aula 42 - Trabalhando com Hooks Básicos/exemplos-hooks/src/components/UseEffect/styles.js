@@ -10,7 +10,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-evenly;
 
-    background-color: #a0b0c0;
+    background-color: #c0b0a0;
 `
 
 export const Text = styled.p`
