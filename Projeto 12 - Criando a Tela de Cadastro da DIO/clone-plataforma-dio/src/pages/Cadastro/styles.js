@@ -28,7 +28,7 @@ export const Title = styled.h2`
 `;
 
 export const Wrapper = styled.div`
-    width: 300px;
+    width: 350px;
 `;
 
 export const TitleLogin = styled.p`
@@ -45,13 +45,14 @@ export const SubtitleLogin = styled.p`
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    margin-bottom: 35px;
+    margin: 20px 0;
     line-height: 25px;
 `;
 
 export const Row = styled.div`
     display: flex;
     align-items: flex-start;
+    justify-content: left;
 `
 
 export const TextLogin = styled.p`
@@ -68,5 +69,6 @@ export const TextLinkLogin = styled.a`
     font-weight: 700;
     font-size: 12px;
     line-height: 18px;
+    margin-left: 5px;
     color: #30b060
 `;

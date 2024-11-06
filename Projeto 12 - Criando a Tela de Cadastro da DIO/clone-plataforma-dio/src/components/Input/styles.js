@@ -8,7 +8,7 @@ export const InputContainer = styled.div`
 
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `;
 
 export const IconContainer = styled.div`
@@ -27,7 +27,7 @@ export const ErrorText = styled.p`
     font-family: "Open Sans";
     font-style: normal;
     font-size: 12px;
-    margin-top: 5px;
+    margin: 5px 0 10px 0;
 
     color: #ff0000;
 `;

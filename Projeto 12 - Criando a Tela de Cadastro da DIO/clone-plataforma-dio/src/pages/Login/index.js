@@ -36,6 +36,14 @@ const schema = yup.object({
 const Login = () => {
     const navigate = useNavigate();
 
+    const handleClickSignUp = () => {
+        navigate("/cadastro");
+    };
+
+    const handleClickHome = () => {
+        navigate("/");
+    };
+
     // Utiliza o useForm para implementar o react hook forms.
     const {
         control,
@@ -49,9 +57,11 @@ const Login = () => {
     // Função que define o que fazer quando o botão Submit for usado no form.
     const onSubmit = async (formData) => {
         try {
+            console.log("Dados do form:", formData);
             const { data } = await api.get(
                 `users?email=${formData.email}&senha=${formData.password}`
             );
+            console.log("Dados da API:", data);
             if (data.length === 1) {
                 console.log(data);
                 navigate("/feed");
@@ -63,17 +73,13 @@ const Login = () => {
         }
     };
 
-    const handleClickSignUp = () => {
-        navigate("/cadastro");
-    };
-
-    const handleClickHome = () => {
-        navigate("/");
-    };
-
     return (
         <div>
-            <Header showEntrar={false} onClickCadastrar={handleClickSignUp} onClickHome={handleClickHome}/>
+            <Header
+                showEntrar={false}
+                onClickCadastrar={handleClickSignUp}
+                onClickHome={handleClickHome}
+            />
             <Container>
                 <Column>
                     <Title>
@@ -108,7 +114,12 @@ const Login = () => {
                         </form>
                         <Row>
                             <EsqueciText>Esqueci minha senha</EsqueciText>
-                            <CriarText>Criar Conta</CriarText>
+                            <CriarText
+                                href="/cadastro"
+                                onClick={handleClickSignUp}
+                            >
+                                Criar Conta
+                            </CriarText>
                         </Row>
                     </Wrapper>
                 </Column>
