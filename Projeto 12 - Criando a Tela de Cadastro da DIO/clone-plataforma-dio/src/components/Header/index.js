@@ -7,13 +7,21 @@ import {
     HeaderContainer,
     Input,
     Menu,
-    MenuRight,
     Row,
     UserPicture,
     Wrapper,
 } from "./styles";
 
-const Header = ({ usuarioAutenticado = false, userImage, onClickEntrar = null, onClickSair = null}) => {
+const Header = ({
+    userImage,
+    usuarioAutenticado: userLogado = false,
+    showHome = true,
+    showEntrar = true,
+    showCadastrar = true,
+    onClickEntrar = null,
+    onClickCadastrar = null,
+    onClickHome = null,
+}) => {
     return (
         <Wrapper>
             <HeaderContainer>
@@ -25,18 +33,20 @@ const Header = ({ usuarioAutenticado = false, userImage, onClickEntrar = null, o
                     <Menu href="#">Live Code</Menu>
                     <Menu href="#">Global</Menu>
                 </Row>
-                {usuarioAutenticado ? ( //Se o usuário estiver logado, mostra a foto de perfil dele.
-                    <Row>
+                <Row>
+                    {showHome ? ( // Define se o link para Home será exibido.
+                        <Button title="Home" onClick={onClickHome} />
+                    ) : null}
+                    {userLogado ? ( //Se o usuário estiver logado, mostra a foto de perfil dele.
                         <UserPicture src={userImage} />
-                        <Button title="Sair" variant="tertiary" onClick={onClickSair}/>
-                    </Row>
-                ) : (
-                    <Row>
-                        <MenuRight href="#">Home</MenuRight>
-                        <Button title="Entrar" onClick={onClickEntrar}/>
-                        <Button title="Cadastrar" onClick={onClickEntrar}/>
-                    </Row>
-                )}
+                    ) : null}
+                    {showEntrar ? ( // Define se o botão Entrar será exibido.
+                        <Button title="Entrar" onClick={onClickEntrar} />
+                    ) : null}
+                    {showCadastrar ? ( // Define se o botão Cadastrar será exibido.
+                        <Button title="Cadastrar" onClick={onClickCadastrar} />
+                    ) : null}
+                </Row>
             </HeaderContainer>
         </Wrapper>
     );

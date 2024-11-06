@@ -14,9 +14,17 @@ const Home = () => {
         navigate("/login");
     };
 
+    const handleClickSignUp = () => {
+        navigate("/cadastro");
+    };
+
     return (
         <div>
-            <Header onClickEntrar={handleClickSignIn} />
+            <Header
+                showHome={false}
+                onClickEntrar={handleClickSignIn}
+                onClickCadastrar={handleClickSignUp}
+            />
             <Container>
                 <section>
                     <Title>

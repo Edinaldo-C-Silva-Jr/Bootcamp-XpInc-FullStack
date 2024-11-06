@@ -8,7 +8,7 @@ import { UserInfo } from "../../components/UserInfo";
 const Feed = () => {
     const navigate = useNavigate();
 
-    const handleClickSair = () => {
+    const handleClickHome = () => {
         navigate("/");
     };
 
@@ -16,8 +16,10 @@ const Feed = () => {
         <div>
             <Header
                 usuarioAutenticado={true}
+                showEntrar={false}
+                showCadastrar={false}
+                onClickHome={handleClickHome}
                 userImage="https://avatars.githubusercontent.com/u/122048298?v=4&size=64"
-                onClickSair={handleClickSair}
             />
             <Container>
                 <Column flex={3}>

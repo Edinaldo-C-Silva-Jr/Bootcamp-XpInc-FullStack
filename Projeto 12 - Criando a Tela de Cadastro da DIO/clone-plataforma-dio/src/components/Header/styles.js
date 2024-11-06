@@ -55,16 +55,6 @@ export const Menu = styled.a`
     text-decoration: none;
 `
 
-export const MenuRight = styled.a`
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-size: 14px;
-    line-height: 25px;
-    color: #ffffff;
-    margin-right: 12px;
-    text-decoration: none;
-`
-
 export const UserPicture = styled.img`
     width: 32px;
     height: 32px;
