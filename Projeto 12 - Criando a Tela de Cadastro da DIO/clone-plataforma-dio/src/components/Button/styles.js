@@ -39,11 +39,4 @@ export const ButtonContainer = styled.button`
                 border-radius: 22px;
             }
         `}
-
-    ${({ variant }) =>
-        variant === "tertiary" &&
-        css`
-            min-width: 60px;
-            height: 30px;
-        `}
 `;

@@ -62,18 +62,6 @@ export const CriarText = styled.p`
     color: #e230d7;
 `;
 
-export const TextContent = styled.p`
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    width: 420px;
-    margin-bottom: 20px;
-    line-height: 22px;
-
-    color: #ffffff;
-`;
-
 export const Wrapper = styled.div`
     max-width: 300px;
 `;
