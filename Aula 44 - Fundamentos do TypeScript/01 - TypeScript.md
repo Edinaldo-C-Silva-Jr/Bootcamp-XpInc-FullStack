@@ -54,6 +54,20 @@ const usuario: IUsuario = {
 Caso o objeto não siga o padrão estabelecido pela interface, a IDE aponta um erro.  
 A IDE também informa os atributos necessários ao passar o mouse sobre o nome da interface.
 
+É possível declarar propriedades opcionais na interface, adicionando um `?` no nome da propriedade:
+
+```
+interface IUsuario {
+    nome: string;
+    idade?: number;
+    ativo?: boolean;
+}
+
+const usuario: IUsuario = {
+    nome: "João"
+}
+```
+
 #### Type
 
 Um Type permite definir um padrão para um certo tipo de objeto. Ele é bem parecido com uma interface, mas possui algumas diferenças com base no uso.
