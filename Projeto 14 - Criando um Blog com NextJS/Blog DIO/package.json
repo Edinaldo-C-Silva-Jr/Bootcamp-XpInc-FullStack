@@ -21,6 +21,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/core": "^7.26.0",
     "@mapbox/rehype-prism": "^0.8.0",
     "@netlify/plugin-nextjs": "4.14",
     "@tailwindcss/typography": "^0.5.0",
@@ -37,7 +38,10 @@
     "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "autoprefixer": "^10.4.0",
+    "babel-loader": "^8.4.1",
     "eslint": "<9.0.0",
     "eslint-config-next": "12.2.4",
     "eslint-config-prettier": "^8.3.0",
