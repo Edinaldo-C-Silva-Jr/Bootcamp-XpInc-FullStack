@@ -1,0 +1,26 @@
+## Projeto DIO Blog
+
+O projeto será criado em um servidor de nuvem através do **Supabase**. O Supabase é um serviço de nuvem que permite hospedar aplicativos, bancos de dados, API, autenticação, dentre outros.
+
+O Supabase possui um plano gratuito, e pode ser acessado através do link `https://supabase.com/`. Ele pode ser acessado fazendo login com uma conta do Github.  
+No primeiro acesso, é necessário criar uma organização, depois criar o projeto.
+
+Ao entrar no Supabase, é exibida a tela inicial, onde é possível gerenciar a conta, as organizações, os projetos e outras opções.
+
+Ao entrar em um projeto, há varias opções de como trabalhar nele: banco de dados, autenticação, armazenamento, bibliotecas, dentre outros. Com isso, é possível iniciar o projeto.
+
+### Criar Tabelas no Banco de Dados
+
+Indo no **Table Editor**, é possível criar tabelas para o banco de dados.
+
+Criar uma tabela de **Posts**, com as colunas:
+- `id`: UUID
+- `title`: Varchar
+- `created-at`: Timestamp
+- `description`: Text
+- `body`: Text
+
+### Ver as Informações da API
+
+Dentro do projeto no supabase, há uma aba **API Docs**, que contém informações sobre a API do projeto, que é criada por padrão em projetos supabase.  
+As tabelas do banco de dados do projeto podem ser acessadas através dessa API.
