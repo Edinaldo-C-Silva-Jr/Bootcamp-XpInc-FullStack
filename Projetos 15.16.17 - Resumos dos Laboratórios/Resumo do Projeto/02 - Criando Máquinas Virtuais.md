@@ -1,6 +1,6 @@
 ## Criando Máquinas Virtuais no Azure
 
-No Portal do Azure, na área de **Todos os Serviços**, é possível criar uma máquina virtual através do caminho: `Computação > Infrastructure as a Service > Máquinas Virtuais > Criar`. ISso exibe 3 opções:
+No Portal do Azure, na área de **Todos os Serviços**, é possível criar uma máquina virtual através do caminho: `Computação > Infrastructure as a Service > Máquinas Virtuais`, depois clicar no botão `➕Criar`. Isso exibe 3 opções:
 - Máquina virtual do Azure
 - Máquina virtual do Azure com uma configuração predefinida
 - Mais VMs e soluções relacionadas
